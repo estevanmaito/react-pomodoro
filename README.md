@@ -1,6 +1,6 @@
 # React Pomodoro
 
-[See it live](https://estevanmaito.github.io/react-timer)
+[See it live](https://estevanmaito.github.io/react-pomodoro)
 
 This is a complete rewrite of another project of mine, [Pomodoro Timer](https://github.com/estevanmaito/pomodoro-timer), writen using Vue.
 

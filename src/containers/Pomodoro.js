@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import Icon from '../components/Icon/Icon'
 import Timer from '../components/Timer/Timer'
 import Controls from '../components/Controls/Controls'
 import History from '../components/History/History'
 import Footer from '../components/Footer/Footer'
+import { ReactComponent as WorkIcon } from '../assets/img/desktop.svg'
+import { ReactComponent as CoffeeIcon } from '../assets/img/coffee.svg'
 
 import DB from '../helpers/localStorage'
 import formatDate from '../helpers/formatDate'
@@ -29,7 +30,6 @@ class Pomodoro extends Component {
       allTimePomoCount: DB.getAllTimePomodoros().length
     })
   }
-  
 
   handleHistoryVisibility = () => {
     this.setState((state, props) => {
@@ -128,12 +128,14 @@ class Pomodoro extends Component {
 
     return (
       <div className="Pomodoro">
-        <Icon icon={currentPomodoro.type}/>
+        {
+          currentPomodoro.type !== 'break' ?
+          <WorkIcon /> :
+          <CoffeeIcon />
+        }
         <Timer 
-          hasStarted={this.state.hasStarted}
           duration={currentPomodoro.duration}
-          elapsedTime={this.state.elapsedTime}
-          stopTimer={this.handleStartStopTimer} />
+          elapsedTime={this.state.elapsedTime} />
         <Controls 
           hasStarted={this.state.hasStarted}
           handleTimer={this.handleStartStopTimer}

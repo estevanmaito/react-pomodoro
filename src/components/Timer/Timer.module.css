@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Chakra+Petch:300,400');
+
 .timer {
-  font-size: 3rem;
+  font-size: 10rem;
+  font-weight: 400;
+  font-family: 'Roboto Mono';
 }

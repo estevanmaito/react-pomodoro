@@ -6,11 +6,9 @@ import date from '../../helpers/formatDate'
 const Timer = (props) => {
   const { duration, elapsedTime } = props
   
-  return (
-    <div className={cls.timer}>
-      {date.printFromSeconds(duration - elapsedTime)}
-    </div>
-  )
+  return <span className={cls.timer}>
+           {date.printFromSeconds(duration - elapsedTime)}
+         </span>
 }
 
 export default Timer

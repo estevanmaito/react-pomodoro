@@ -1,10 +1,12 @@
 import React from 'react'
 import HistoryListItem from './HistoryListItem/HistoryListItem'
 
+import cls from './HistoryList.module.css'
+
 const HistoryList = (props) => {
   return (
     <div>
-      <table>
+      <table className={cls.table}>
         <thead>
           <tr>
             <th>Type</th>

@@ -5,7 +5,7 @@ export default {
       case 'hh:mm':
         const HOUR = DATE.getHours()
         const MIN = DATE.getMinutes()
-        return `${HOUR}:${MIN}`
+        return `${HOUR < 10 ? '0' : ''}${HOUR}:${MIN < 10 ? '0' : ''}${MIN}`
       default:
         return time
     }

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 
-import play from '../../assets/img/play.png'
-import refresh from '../../assets/img/refresh.png'
-import clock from '../../assets/img/clock.png'
+import { ReactComponent as PlayIcon } from '../../assets/img/play.svg'
+import { ReactComponent as RefreshIcon } from '../../assets/img/refresh.svg'
+import { ReactComponent as ClockIcon } from '../../assets/img/list.svg'
 import cls from './Controls.module.css'
 
 class Controls extends PureComponent {
@@ -12,11 +12,16 @@ class Controls extends PureComponent {
         <button
           className={cls.btn}
           onClick={this.props.handleTimer}>
-          <img src={this.props.hasStarted ? refresh : play} alt="Play"/></button>
+          {
+            this.props.hasStarted ?
+            <RefreshIcon /> :
+            <PlayIcon />
+          }
+        </button>
         <button
           className={cls.btn}
           onClick={this.props.showHistory}>
-          <img src={clock} alt="History"/></button>
+          <ClockIcon /></button>
       </div>
     )
   }

@@ -51,6 +51,7 @@ class Pomodoro extends Component {
   resetTimer = () => {
     clearInterval(this.state.interval)
     this.setState({
+      pomodoros: POMODOROS,
       hasStarted: false,
       elapsedTime: 0,
       interval: null,

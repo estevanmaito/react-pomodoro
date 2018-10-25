@@ -32,11 +32,7 @@ class Pomodoro extends Component {
   }
 
   handleHistoryVisibility = () => {
-    this.setState((state, props) => {
-      return {
-        showHistory: !state.showHistory
-      }
-    })
+    this.setState(state => {return {showHistory: !state.showHistory}})
   }
 
   handleStartStopTimer = () => {
@@ -44,7 +40,7 @@ class Pomodoro extends Component {
       this.resetTimer()
     } else {
       this.tick()
-      this.setState(state => ({ hasStarted: true }))
+      this.setState({ hasStarted: true })
     }
   }
 
@@ -65,15 +61,16 @@ class Pomodoro extends Component {
     if (this.state.pomodoros.length - 1 === this.state.currentPomodoro) {
       return this.resetTimer()
     }
-    this.setState(state =>{
+    this.setState(state => {
       return {
         elapsedTime: 0,
-        currentPomodoro: this.state.currentPomodoro + 1
+        currentPomodoro: state.currentPomodoro + 1
       }
     })
     this.savePomodoro()
   }
 
+  // TODO: add notifications API
   alert = () => {
     const audio = new Audio(bell)
     audio.play()
@@ -81,15 +78,12 @@ class Pomodoro extends Component {
 
   tick = () => {
     const interval = setInterval(() => {
+      // if timer reached 0, load next pomodoro
       if (this.state.elapsedTime === 
         this.state.pomodoros[this.state.currentPomodoro].duration) {
           return this.nextPomo()
       }
-      this.setState((state, props) => {
-        return {
-          elapsedTime: state.elapsedTime + 1 
-        }
-      })
+      this.setState(state => { return {elapsedTime: state.elapsedTime + 1}})
     }, 1000)
 
     this.setState({ interval })
@@ -101,6 +95,9 @@ class Pomodoro extends Component {
     const now = Date.now()
     let todayPomoCount = null
     let allTimePomoCount = null
+
+    // Only count a finished Pomodoro when the timer
+    // changes to a break
     if (currentPomodoro.type !== 'pomodoro') {
       DB.create('pomodoro', now)
       todayPomoCount = DB.getTodaysPomodoros().length
@@ -118,8 +115,8 @@ class Pomodoro extends Component {
           }
           return pomo
         }),
-        todayPomoCount: todayPomoCount ? todayPomoCount : state.todayPomoCount,
-        allTimePomoCount: allTimePomoCount ? allTimePomoCount : state.allTimePomoCount
+        todayPomoCount: todayPomoCount || state.todayPomoCount,
+        allTimePomoCount: allTimePomoCount || state.allTimePomoCount
       }
     })
   }

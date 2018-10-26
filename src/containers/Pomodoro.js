@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
+import TimerTypeIcon from '../components/TimerTypeIcon/TimerTypeIcon'
 import Timer from '../components/Timer/Timer'
 import Controls from '../components/Controls/Controls'
 import History from '../components/History/History'
 import Footer from '../components/Footer/Footer'
-import { ReactComponent as WorkIcon } from '../assets/img/desktop.svg'
-import { ReactComponent as CoffeeIcon } from '../assets/img/coffee.svg'
 
 import DB from '../helpers/localStorage'
 import formatDate from '../helpers/formatDate'
@@ -144,11 +143,8 @@ class Pomodoro extends Component {
 
     return (
       <div className="Pomodoro">
-        {
-          currentPomodoro.type !== 'break' ?
-          <WorkIcon /> :
-          <CoffeeIcon />
-        }
+        <TimerTypeIcon
+          type={currentPomodoro.type}/>
         <Timer 
           duration={currentPomodoro.duration}
           elapsedTime={this.state.elapsedTime} />

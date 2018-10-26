@@ -12,7 +12,7 @@ class Controls extends PureComponent {
       handleResetTimer,
       hasStarted,
       showHistory } = this.props
-      
+
     return (
       <div>
         <button
@@ -28,8 +28,7 @@ class Controls extends PureComponent {
         <button
          className={cls.btn}
          onClick={handleResetTimer}
-         title="Reset timer"
-         disabled={!hasStarted}>
+         title="Reset timer">
           <RefreshIcon />
         </button>
         <button

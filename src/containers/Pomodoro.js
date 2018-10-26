@@ -90,13 +90,15 @@ class Pomodoro extends Component {
     if (this.state.pomodoros.length - 1 === this.state.currentPomodoro) {
       return this.resetTimer()
     }
+    // save before setting state here because savePomodoro() depends
+    // on the current elapsedTime
+    this.savePomodoro()
     this.setState(state => {
       return {
         elapsedTime: 0,
         currentPomodoro: state.currentPomodoro + 1
       }
     })
-    this.savePomodoro()
   }
 
   // TODO: add notifications API
@@ -112,8 +114,9 @@ class Pomodoro extends Component {
     let allTimePomoCount = null
 
     // Only count a finished Pomodoro when the timer
-    // changes to a break
-    if (currentPomodoro.type !== 'pomodoro') {
+    // hits the same duration of a pomodoro
+    if (currentPomodoro.type === 'pomodoro' &&
+      this.state.elapsedTime === currentPomodoro.duration) {
       DB.create('pomodoro', now)
       todayPomoCount = DB.getTodaysPomodoros().length
       allTimePomoCount = DB.getAllTimePomodoros().length

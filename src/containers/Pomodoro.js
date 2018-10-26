@@ -37,11 +37,40 @@ class Pomodoro extends Component {
 
   handleStartStopTimer = () => {
     if (this.state.hasStarted) {
-      this.resetTimer()
+      this.stopTimer()
     } else {
-      this.tick()
+      this.startTimer()
       this.setState({ hasStarted: true })
     }
+  }
+
+  handleResetTimer = () => {
+    this.resetTimer()
+  }
+
+  startTimer = () => {
+    const interval = setInterval(() => {
+      // if timer reached 0, load next pomodoro
+      if (this.state.elapsedTime === 
+        this.state.pomodoros[this.state.currentPomodoro].duration) {
+          return this.nextPomo()
+      }
+      this.setState(state => { return {elapsedTime: state.elapsedTime + 1}})
+    }, 1000)
+
+    this.setState({ interval })
+    this.savePomodoro()
+  }
+
+  stopTimer = () => {
+    clearInterval(this.state.interval)
+    this.setState(state => {
+      return {
+        elapsedTime: 0,
+        interval: null,
+        hasStarted: false
+      }
+    })
   }
 
   resetTimer = () => {
@@ -74,20 +103,6 @@ class Pomodoro extends Component {
   alert = () => {
     const audio = new Audio(bell)
     audio.play()
-  }
-
-  tick = () => {
-    const interval = setInterval(() => {
-      // if timer reached 0, load next pomodoro
-      if (this.state.elapsedTime === 
-        this.state.pomodoros[this.state.currentPomodoro].duration) {
-          return this.nextPomo()
-      }
-      this.setState(state => { return {elapsedTime: state.elapsedTime + 1}})
-    }, 1000)
-
-    this.setState({ interval })
-    this.savePomodoro()
   }
 
   savePomodoro = () => {
@@ -136,7 +151,8 @@ class Pomodoro extends Component {
           elapsedTime={this.state.elapsedTime} />
         <Controls 
           hasStarted={this.state.hasStarted}
-          handleTimer={this.handleStartStopTimer}
+          handleStartStopTimer={this.handleStartStopTimer}
+          handleResetTimer={this.handleResetTimer}
           showHistory={this.handleHistoryVisibility} />
         {
           this.state.showHistory && 

@@ -11,9 +11,10 @@
   width: 100%;
 }
 
-svg {
-  fill: url(#gradient);
-  width: 100%;
-  max-width: 50px;
-  height: 100%;
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btn:disabled svg {
+  fill: #aaa;
 }

@@ -5,9 +5,11 @@ import date from '../../helpers/formatDate'
 
 const Timer = (props) => {
   const { duration, elapsedTime } = props
+  const timer = date.printFromSeconds(duration - elapsedTime)
+  document.title = `${timer} | React Pomodoro`
   
   return <span className={cls.timer}>
-           {date.printFromSeconds(duration - elapsedTime)}
+           {timer}
          </span>
 }
 

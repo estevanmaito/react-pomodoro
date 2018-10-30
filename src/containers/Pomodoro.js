@@ -64,6 +64,15 @@ class Pomodoro extends Component {
     clearInterval(this.state.interval)
     this.setState(state => {
       return {
+        pomodoros: state.pomodoros.map((pomo, i) => {
+          if (i === state.currentPomodoro) {
+            return {
+              ...pomo,
+              started: null
+            }
+          }
+          return pomo
+        }),
         elapsedTime: 0,
         interval: null,
         hasStarted: false
@@ -168,8 +177,8 @@ class Pomodoro extends Component {
 export default Pomodoro;
 
 const POMODOROS = [
-  { type: 'pomodoro', name: 'Pomodoro', id: 1, duration: 1500 },
-  { type: 'break', name: 'Short break', id: 2, duration: 300 },
+  { type: 'pomodoro', name: 'Pomodoro', id: 1, duration: 5 },
+  { type: 'break', name: 'Short break', id: 2, duration: 3 },
   { type: 'pomodoro', name: 'Pomodoro', id: 3, duration: 1500 },
   { type: 'break', name: 'Short break', id: 4, duration: 300 },
   { type: 'pomodoro', name: 'Pomodoro', id: 5, duration: 1500 },

@@ -23,6 +23,10 @@ class Pomodoro extends Component {
     allTimePomoCount: 0
   }
 
+  // For some reason, Chrome won't play the bell or create the Audio object
+  // until the pomodoro tab is focused, for the first time
+  audio = new Audio(bell)
+
   componentDidMount = () => {
     this.setState({
       todayPomoCount: DB.getTodaysPomodoros().length,
@@ -109,8 +113,7 @@ class Pomodoro extends Component {
 
   // TODO: add notifications API
   alert = () => {
-    const audio = new Audio(bell)
-    audio.play()
+    this.audio.play()
   }
 
   savePomodoro = () => {

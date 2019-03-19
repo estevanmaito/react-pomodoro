@@ -99,8 +99,6 @@ const History = props => {
         avg={avgPomosPerMonth}
       />
       <HistoryStats value={allTimePomos} label="All time" />
-      <p>Pomos today: {props.todayPomoCount}</p>
-      <p>Pomos history: {props.allTimePomoCount}</p>
     </div>
   );
 };

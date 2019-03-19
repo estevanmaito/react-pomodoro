@@ -19,8 +19,6 @@ class Pomodoro extends Component {
     currentPomodoro: 0,
     elapsedTime: 0,
     interval: null,
-    todayPomoCount: 0,
-    allTimePomoCount: 0,
     allPomodorosMade: []
   };
 
@@ -29,11 +27,8 @@ class Pomodoro extends Component {
   audio = new Audio(bell);
 
   componentDidMount = () => {
-    const allTimePomodoros = DB.getAllTimePomodoros();
     this.setState({
-      todayPomoCount: DB.getTodaysPomodoros().length,
-      allTimePomoCount: allTimePomodoros.length,
-      allPomodorosMade: allTimePomodoros
+      allPomodorosMade: DB.getAllTimePomodoros()
     });
   };
 
@@ -45,14 +40,24 @@ class Pomodoro extends Component {
 
   handleStartStopTimer = () => {
     if (this.state.hasStarted) {
-      this.stopTimer();
+      if (
+        window.confirm(
+          "This will stop and reset the CURRENT timer. Are you sure?"
+        )
+      )
+        this.stopTimer();
     } else {
       this.startTimer();
     }
   };
 
   handleResetTimer = () => {
-    this.resetTimer();
+    if (
+      window.confirm(
+        "This will STOP and CLEAR all current pomodoros. Are you sure?"
+      )
+    )
+      this.resetTimer();
   };
 
   startTimer = () => {
@@ -128,8 +133,7 @@ class Pomodoro extends Component {
   savePomodoro = () => {
     const currentPomodoro = this.state.pomodoros[this.state.currentPomodoro];
     const now = Date.now();
-    let todayPomoCount = null;
-    let allTimePomoCount = null;
+    let allPomodorosMade = null;
 
     // Only count a finished Pomodoro if it has moved to a break
     // and the timer is still running (hasStarted)
@@ -137,8 +141,7 @@ class Pomodoro extends Component {
     // from a break
     if (currentPomodoro.type !== "pomodoro" && this.state.hasStarted) {
       DB.create("pomodoro", now);
-      todayPomoCount = DB.getTodaysPomodoros().length;
-      allTimePomoCount = DB.getAllTimePomodoros().length;
+      allPomodorosMade = DB.getAllTimePomodoros();
     }
 
     this.setState(state => {
@@ -152,8 +155,7 @@ class Pomodoro extends Component {
           }
           return pomo;
         }),
-        todayPomoCount: todayPomoCount || state.todayPomoCount,
-        allTimePomoCount: allTimePomoCount || state.allTimePomoCount
+        allPomodorosMade: allPomodorosMade || state.allPomodorosMade
       };
     });
   };
@@ -177,8 +179,6 @@ class Pomodoro extends Component {
         {this.state.showHistory && (
           <History
             pomos={this.state.pomodoros}
-            todayPomoCount={this.state.todayPomoCount}
-            allTimePomoCount={this.state.allTimePomoCount}
             allPomodorosMade={this.state.allPomodorosMade}
           />
         )}

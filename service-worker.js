@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-pomodoro/precache-manifest.902e14c20859b1af97d3753e4ddac3b5.js"
+  "/react-pomodoro/precache-manifest.8e24004c96a5eb8c0909357ab5bb600d.js"
 );
 
 workbox.clientsClaim();

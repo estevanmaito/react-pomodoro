@@ -1,9 +1,9 @@
 {
-  "main.css": "/react-pomodoro/static/css/main.026cb0bd.chunk.css",
-  "main.js": "/react-pomodoro/static/js/main.97487bd9.chunk.js",
-  "main.js.map": "/react-pomodoro/static/js/main.97487bd9.chunk.js.map",
-  "static/js/1.0c0e9fc6.chunk.js": "/react-pomodoro/static/js/1.0c0e9fc6.chunk.js",
-  "static/js/1.0c0e9fc6.chunk.js.map": "/react-pomodoro/static/js/1.0c0e9fc6.chunk.js.map",
+  "main.css": "/react-pomodoro/static/css/main.c7d693ae.chunk.css",
+  "main.js": "/react-pomodoro/static/js/main.dce3341c.chunk.js",
+  "main.js.map": "/react-pomodoro/static/js/main.dce3341c.chunk.js.map",
+  "static/js/1.b3343a13.chunk.js": "/react-pomodoro/static/js/1.b3343a13.chunk.js",
+  "static/js/1.b3343a13.chunk.js.map": "/react-pomodoro/static/js/1.b3343a13.chunk.js.map",
   "runtime~main.js": "/react-pomodoro/static/js/runtime~main.3d44c523.js",
   "runtime~main.js.map": "/react-pomodoro/static/js/runtime~main.3d44c523.js.map",
   "static/media/bell.mp3": "/react-pomodoro/static/media/bell.f3e1419d.mp3",
@@ -14,8 +14,8 @@
   "static/media/list.273e2918.svg": "/react-pomodoro/static/media/list.273e2918.svg",
   "static/media/github.208627c7.svg": "/react-pomodoro/static/media/github.208627c7.svg",
   "static/media/desktop.c11e8362.svg": "/react-pomodoro/static/media/desktop.c11e8362.svg",
-  "static/css/main.026cb0bd.chunk.css.map": "/react-pomodoro/static/css/main.026cb0bd.chunk.css.map",
+  "static/css/main.c7d693ae.chunk.css.map": "/react-pomodoro/static/css/main.c7d693ae.chunk.css.map",
   "index.html": "/react-pomodoro/index.html",
-  "precache-manifest.902e14c20859b1af97d3753e4ddac3b5.js": "/react-pomodoro/precache-manifest.902e14c20859b1af97d3753e4ddac3b5.js",
+  "precache-manifest.8e24004c96a5eb8c0909357ab5bb600d.js": "/react-pomodoro/precache-manifest.8e24004c96a5eb8c0909357ab5bb600d.js",
   "service-worker.js": "/react-pomodoro/service-worker.js"
 }

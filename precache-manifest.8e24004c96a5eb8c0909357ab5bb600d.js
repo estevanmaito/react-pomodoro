@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/react-pomodoro/static/media/coffee.b97e2800.svg"
   },
   {
-    "revision": "97487bd9789045fa3a21",
-    "url": "/react-pomodoro/static/css/main.026cb0bd.chunk.css"
+    "revision": "dce3341c7ba4e96fc9a1",
+    "url": "/react-pomodoro/static/css/main.c7d693ae.chunk.css"
   },
   {
-    "revision": "0c0e9fc657abf50bcb48",
-    "url": "/react-pomodoro/static/js/1.0c0e9fc6.chunk.js"
+    "revision": "b3343a13be49975c3136",
+    "url": "/react-pomodoro/static/js/1.b3343a13.chunk.js"
   },
   {
     "revision": "3d44c52309990baf2f61",
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/react-pomodoro/static/media/desktop.c11e8362.svg"
   },
   {
-    "revision": "97487bd9789045fa3a21",
-    "url": "/react-pomodoro/static/js/main.97487bd9.chunk.js"
+    "revision": "dce3341c7ba4e96fc9a1",
+    "url": "/react-pomodoro/static/js/main.dce3341c.chunk.js"
   },
   {
     "revision": "c53f162adca8bacbca710a1e213fecf7",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/react-pomodoro/static/media/github.208627c7.svg"
   },
   {
-    "revision": "1077f50e20aea5620983b55fef002f44",
+    "revision": "3768f801bc717101e250c74ac468b6c6",
     "url": "/react-pomodoro/index.html"
   }
 ];

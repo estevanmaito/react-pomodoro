@@ -1,0 +1,23 @@
+.historyStats {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.historyStats:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.value {
+  font-weight: bold;
+}
+
+.label {
+  font-size: .9rem;
+}
+
+.avg {
+  font-size: 0.9rem;
+  color: #888;
+}

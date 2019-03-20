@@ -32,6 +32,10 @@ class Pomodoro extends Component {
     });
   };
 
+  componentWillUnmount = () => {
+    clearInterval(this.state.interval);
+  };
+
   handleHistoryVisibility = () => {
     this.setState(state => {
       return { showHistory: !state.showHistory };

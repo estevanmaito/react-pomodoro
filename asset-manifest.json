@@ -1,9 +1,9 @@
 {
   "main.css": "/react-pomodoro/static/css/main.c7d693ae.chunk.css",
-  "main.js": "/react-pomodoro/static/js/main.38b259ac.chunk.js",
-  "main.js.map": "/react-pomodoro/static/js/main.38b259ac.chunk.js.map",
-  "static/js/1.c24a7758.chunk.js": "/react-pomodoro/static/js/1.c24a7758.chunk.js",
-  "static/js/1.c24a7758.chunk.js.map": "/react-pomodoro/static/js/1.c24a7758.chunk.js.map",
+  "main.js": "/react-pomodoro/static/js/main.6f071afa.chunk.js",
+  "main.js.map": "/react-pomodoro/static/js/main.6f071afa.chunk.js.map",
+  "static/js/1.b3343a13.chunk.js": "/react-pomodoro/static/js/1.b3343a13.chunk.js",
+  "static/js/1.b3343a13.chunk.js.map": "/react-pomodoro/static/js/1.b3343a13.chunk.js.map",
   "runtime~main.js": "/react-pomodoro/static/js/runtime~main.3d44c523.js",
   "runtime~main.js.map": "/react-pomodoro/static/js/runtime~main.3d44c523.js.map",
   "static/media/bell.mp3": "/react-pomodoro/static/media/bell.f3e1419d.mp3",
@@ -16,6 +16,6 @@
   "static/media/desktop.c11e8362.svg": "/react-pomodoro/static/media/desktop.c11e8362.svg",
   "static/css/main.c7d693ae.chunk.css.map": "/react-pomodoro/static/css/main.c7d693ae.chunk.css.map",
   "index.html": "/react-pomodoro/index.html",
-  "precache-manifest.30163996afb97b6a1c21932e4cd4cf13.js": "/react-pomodoro/precache-manifest.30163996afb97b6a1c21932e4cd4cf13.js",
+  "precache-manifest.075aa81d8e003d61e3683e550737a0a0.js": "/react-pomodoro/precache-manifest.075aa81d8e003d61e3683e550737a0a0.js",
   "service-worker.js": "/react-pomodoro/service-worker.js"
 }

@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
-import date from '../../../../helpers/formatDate'
+import date from "../../../../helpers/formatDate";
 
-const HistoryListItem = (props) => {
+const HistoryListItem = props => {
   return (
     <tr>
       <td>{props.name}</td>
       <td>{date.printFromSeconds(props.duration)}</td>
       <td>{props.started}</td>
     </tr>
-  )
-}
+  );
+};
 
-export default HistoryListItem
+export default HistoryListItem;

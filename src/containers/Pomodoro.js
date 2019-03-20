@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import TimerTypeIcon from "../components/TimerTypeIcon/TimerTypeIcon";
 import Timer from "../components/Timer/Timer";
 import Controls from "../components/Controls/Controls";
@@ -11,188 +11,163 @@ import formatDate from "../helpers/formatDate";
 import "./Pomodoro.css";
 import bell from "../assets/audio/bell.mp3";
 
-class Pomodoro extends Component {
-  state = {
-    pomodoros: POMODOROS,
-    showHistory: true,
-    hasStarted: false,
-    currentPomodoro: 0,
-    elapsedTime: 0,
-    interval: null,
-    allPomodorosMade: []
-  };
+const Pomodoro = props => {
+  const [pomodoros, setPomodoros] = useState(POMODOROS);
+  const [showHistory, setShowHistory] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [currentPomodoro, setCurrentPomodoro] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [timer, setTimer] = useState(null);
+  const [allPomodorosMade, setAllPomodorosMade] = useState([]);
 
   // For some reason, Chrome won't play the bell or create the Audio object
   // until the pomodoro tab is focused, for the first time
-  audio = new Audio(bell);
+  const audio = new Audio(bell);
 
-  componentDidMount = () => {
-    this.setState({
-      allPomodorosMade: DB.getAllTimePomodoros()
-    });
+  useEffect(() => {
+    setAllPomodorosMade(DB.getAllTimePomodoros());
+
+    return function cleanup() {
+      clearInterval(timer);
+      setTimer(null);
+    };
+  }, []);
+
+  const handleHistoryVisibility = () => {
+    setShowHistory(!showHistory);
   };
 
-  handleHistoryVisibility = () => {
-    this.setState(state => {
-      return { showHistory: !state.showHistory };
-    });
-  };
-
-  handleStartStopTimer = () => {
-    if (this.state.hasStarted) {
+  const handleStartStopTimer = () => {
+    if (hasStarted) {
       if (
         window.confirm(
           "This will stop and reset the CURRENT timer. Are you sure?"
         )
       )
-        this.stopTimer();
+        stopTimer();
     } else {
-      this.startTimer();
+      startTimer();
     }
   };
 
-  handleResetTimer = () => {
+  const handleResetTimer = () => {
     if (
       window.confirm(
         "This will STOP and CLEAR all current pomodoros. Are you sure?"
       )
     )
-      this.resetTimer();
+      resetTimer();
   };
 
-  startTimer = () => {
+  const startTimer = () => {
     const interval = setInterval(() => {
       // if timer reached 0, load next pomodoro
-      if (
-        this.state.elapsedTime ===
-        this.state.pomodoros[this.state.currentPomodoro].duration
-      ) {
-        return this.nextPomo();
+      if (elapsedTime === pomodoros[currentPomodoro].duration) {
+        return nextPomo();
       }
-      this.setState(state => {
-        return { elapsedTime: state.elapsedTime + 1 };
-      });
+      setElapsedTime(e => e + 1);
     }, 1000);
+    setTimer(interval);
 
-    this.savePomodoro();
-    this.setState({ interval, hasStarted: true });
+    savePomodoro();
+    setHasStarted(true);
   };
 
-  stopTimer = () => {
-    clearInterval(this.state.interval);
-    this.setState(state => {
-      return {
-        pomodoros: state.pomodoros.map((pomo, i) => {
-          if (i === state.currentPomodoro) {
-            return {
-              ...pomo,
-              started: null
-            };
-          }
-          return pomo;
-        }),
-        elapsedTime: 0,
-        interval: null,
-        hasStarted: false
-      };
-    });
+  const stopTimer = () => {
+    clearInterval(timer);
+    setPomodoros(
+      pomodoros.map((pomo, i) => {
+        if (i === currentPomodoro) {
+          return {
+            ...pomo,
+            started: null
+          };
+        }
+        return pomo;
+      })
+    );
+    setElapsedTime(0);
+    setTimer(null);
+    setHasStarted(false);
   };
 
-  resetTimer = () => {
-    clearInterval(this.state.interval);
-    this.setState({
-      pomodoros: POMODOROS,
-      hasStarted: false,
-      elapsedTime: 0,
-      interval: null,
-      currentPomodoro: 0
-    });
+  const resetTimer = () => {
+    clearInterval(timer);
+    setPomodoros(POMODOROS);
+    setHasStarted(false);
+    setElapsedTime(0);
+    setTimer(null);
+    setCurrentPomodoro(0);
   };
 
-  nextPomo = () => {
-    this.alert();
+  const nextPomo = () => {
+    alert();
     // last pomodoro
-    if (this.state.pomodoros.length - 1 === this.state.currentPomodoro) {
-      return this.resetTimer();
+    if (pomodoros.length - 1 === currentPomodoro) {
+      return resetTimer();
     }
 
-    this.setState(state => {
-      return {
-        elapsedTime: 0,
-        currentPomodoro: state.currentPomodoro + 1
-      };
-    });
-    this.savePomodoro();
+    setElapsedTime(0);
+    setCurrentPomodoro(currentPomodoro + 1);
+    savePomodoro();
   };
 
   // TODO: add notifications API
-  alert = () => {
-    this.audio.play();
+  const alert = () => {
+    audio.play();
   };
 
-  savePomodoro = () => {
-    const currentPomodoro = this.state.pomodoros[this.state.currentPomodoro];
+  const savePomodoro = () => {
     const now = Date.now();
-    let allPomodorosMade = null;
 
     // Only count a finished Pomodoro if it has moved to a break
     // and the timer is still running (hasStarted)
     // hasStarted prevents it from creating a new record on a restart
     // from a break
-    if (currentPomodoro.type !== "pomodoro" && this.state.hasStarted) {
+    if (pomodoros[currentPomodoro].type !== "pomodoro" && hasStarted) {
       DB.create("pomodoro", now);
-      allPomodorosMade = DB.getAllTimePomodoros();
+      setAllPomodorosMade(DB.getAllTimePomodoros());
     }
 
-    this.setState(state => {
-      return {
-        pomodoros: state.pomodoros.map((pomo, i) => {
-          if (i === state.currentPomodoro) {
-            return {
-              ...pomo,
-              started: formatDate.printFromDateObject("hh:mm", now)
-            };
-          }
-          return pomo;
-        }),
-        allPomodorosMade: allPomodorosMade || state.allPomodorosMade
-      };
-    });
+    setPomodoros(
+      pomodoros.map((pomo, i) => {
+        if (i === currentPomodoro) {
+          return {
+            ...pomo,
+            started: formatDate.printFromDateObject("hh:mm", now)
+          };
+        }
+        return pomo;
+      })
+    );
   };
 
-  render() {
-    const currentPomodoro = this.state.pomodoros[this.state.currentPomodoro];
-
-    return (
-      <div className="Pomodoro">
-        <TimerTypeIcon type={currentPomodoro.type} />
-        <Timer
-          duration={currentPomodoro.duration}
-          elapsedTime={this.state.elapsedTime}
-        />
-        <Controls
-          hasStarted={this.state.hasStarted}
-          handleStartStopTimer={this.handleStartStopTimer}
-          handleResetTimer={this.handleResetTimer}
-          showHistory={this.handleHistoryVisibility}
-        />
-        {this.state.showHistory && (
-          <History
-            pomos={this.state.pomodoros}
-            allPomodorosMade={this.state.allPomodorosMade}
-          />
-        )}
-        <Footer />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="Pomodoro">
+      <TimerTypeIcon type={pomodoros[currentPomodoro].type} />
+      <Timer
+        duration={pomodoros[currentPomodoro].duration}
+        elapsedTime={elapsedTime}
+      />
+      <Controls
+        hasStarted={hasStarted}
+        handleStartStopTimer={handleStartStopTimer}
+        handleResetTimer={handleResetTimer}
+        showHistory={handleHistoryVisibility}
+      />
+      {showHistory && (
+        <History pomos={pomodoros} allPomodorosMade={allPomodorosMade} />
+      )}
+      <Footer />
+    </div>
+  );
+};
 
 export default Pomodoro;
 
 const POMODOROS = [
-  { type: "pomodoro", name: "Pomodoro", id: 1, duration: 1500 },
-  { type: "break", name: "Short break", id: 2, duration: 300 },
+  { type: "pomodoro", name: "Pomodoro", id: 1, duration: 5 },
+  { type: "break", name: "Short break", id: 2, duration: 3 },
   { type: "pomodoro", name: "Pomodoro", id: 3, duration: 1500 },
   { type: "break", name: "Short break", id: 4, duration: 300 },
   { type: "pomodoro", name: "Pomodoro", id: 5, duration: 1500 },

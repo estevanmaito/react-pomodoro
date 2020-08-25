@@ -1,9 +1,13 @@
-import React from "react";
-import HistoryListItem from "./HistoryListItem/HistoryListItem";
+import React from 'react'
+import HistoryListItem from './HistoryListItem/HistoryListItem'
 
-import cls from "./HistoryList.module.css";
+import cls from './HistoryList.module.css'
 
-const HistoryList = props => {
+interface Props {
+  pomos: Array<{id: number, name: string, duration: number, started?: any}>
+}
+
+function HistoryList({pomos}: Props) {
   return (
     <div>
       <table className={cls.table}>
@@ -15,7 +19,7 @@ const HistoryList = props => {
           </tr>
         </thead>
         <tbody>
-          {props.pomos.map(pomo => (
+          {pomos.map((pomo) => (
             <HistoryListItem
               key={pomo.id}
               name={pomo.name}
@@ -26,7 +30,7 @@ const HistoryList = props => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default HistoryList;
+export default HistoryList
